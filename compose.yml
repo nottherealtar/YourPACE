@@ -1,0 +1,22 @@
+services:
+  backend:
+    image: ghcr.io/kaneo-app/api:latest
+    environment:
+      JWT_ACCESS: "ES2021"
+      DB_PATH: "/app/apps/api/data/kaneo.db"
+    ports:
+      - 1337:1337
+    restart: unless-stopped
+    volumes:
+      - sqlite_data:/app/apps/api/data
+
+  frontend:
+    image: ghcr.io/kaneo-app/web:latest
+    environment:
+      KANEO_API_URL: "https://your-pace.vercel.app/"
+    ports:
+      - 5173:80
+    restart: unless-stopped
+
+volumes:
+  sqlite_data:
